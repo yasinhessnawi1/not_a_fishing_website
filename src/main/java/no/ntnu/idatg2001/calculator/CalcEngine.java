@@ -12,6 +12,7 @@ public class CalcEngine {
   private int storedValue;
   private int oldValue;
   private boolean newValue;
+  boolean pointPressed;
   private char operation; // added variable to keep track of operation
 
   /**
@@ -19,6 +20,7 @@ public class CalcEngine {
    */
   public CalcEngine() {
     newValue = true;
+    pointPressed = false;
   }
 
   /**
@@ -28,7 +30,7 @@ public class CalcEngine {
    *     on the calculator display.
    */
   public int getDisplayValue() {
-    return displayValue;
+    return  displayValue;
   }
 
   /**
@@ -103,12 +105,25 @@ public class CalcEngine {
     operation = 'x';
     newValue = true;
   }
+  public void divide() {
+    if (storedValue == 0) {
+      storedValue = displayValue;
+    } else
+    {
+      if (storedValue != 0){
+        storedValue = storedValue / displayValue;
+      }
+
+    }
+    operation = '/';
+    newValue = true;
+  }
   /**
    * The '=' button was pressed.
    *
    * @return
    */
-  public int equals()
+  public double equals()
   {
 
     if ( operation == '+')
@@ -120,6 +135,15 @@ public class CalcEngine {
     } else if ( operation == 'x')
     {
       multiplyOperation ( );
+    } else if (operation == '/') {
+      divideOperation();
+    } else if (operation == '?') {
+      info();
+    } else if (operation == '√')
+    {
+      squareRoot();
+    } else if (operation == '.') {
+      decimal();
     }
 
     storedValue = oldValue = 0;
@@ -130,6 +154,10 @@ public class CalcEngine {
   private void multiplyOperation ( )
   {
       displayValue = displayValue * storedValue;
+  }
+  private void divideOperation ( )
+  {
+      displayValue = storedValue / displayValue;
   }
 
   private void minusOperation ( )
@@ -154,13 +182,33 @@ public class CalcEngine {
   }
   }
 
+  public String info()
+  {
+    operation = '?';
+    return getTitle() + getAuthor() + getVersion();
+  }
+public void squareRoot()
+  {
+    displayValue = (int) Math.sqrt(displayValue);
+    operation = '√';
+    newValue = true;
+  }
+  //needs fixing
+  public void decimal() {
+    storedValue = displayValue;
+    String firstNumber = String.valueOf(storedValue);
+    String secondNumber  = String.valueOf(displayValue);
+    displayValue = Integer.parseInt(firstNumber + "." + secondNumber);
+  }
 
-  /**
-   * The 'C' (clear) button was pressed.
-   */
+
+    /**
+     * The 'C' (clear) button was pressed.
+     */
   public void clear() {
     displayValue = 0;
     storedValue = 0;
+    pointPressed = false;
   }
 
   /**
@@ -169,7 +217,7 @@ public class CalcEngine {
    * @return The title of this calculation engine.
    */
   public String getTitle() {
-    return "";
+    return " Calculator";
   }
 
   /**
@@ -179,7 +227,7 @@ public class CalcEngine {
    *     so it should say something like "Written by H. Simpson".
    */
   public String getAuthor() {
-    return "";
+    return "Yasin_Hessnawi";
   }
 
   /**
@@ -189,7 +237,7 @@ public class CalcEngine {
    *     it is, so it should say something like "Version 1.1".
    */
   public String getVersion() {
-    return "";
+    return "1.0.0";
   }
 
 }

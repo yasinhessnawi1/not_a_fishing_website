@@ -74,7 +74,8 @@ public class UserInterface {
     addNumberButton(buttonPanel, 1);
     addNumberButton(buttonPanel, 2);
     addNumberButton(buttonPanel, 3);
-    buttonPanel.add(new JLabel(" "));
+    addButton(buttonPanel, ".", () -> calc.decimal());
+
 
 
     addNumberButton(buttonPanel, 0);
@@ -84,7 +85,9 @@ public class UserInterface {
     addButton(buttonPanel, "=", () -> calc.equals());
 
     addButton (buttonPanel,"x", () -> calc.multiply ());
-    //addButton (buttonPanel,"/", () -> calc.divide ());
+    addButton (buttonPanel,"/", () -> calc.divide ());
+    addButton (buttonPanel,"√", () -> calc.squareRoot ());
+
     contentPane.add(buttonPanel, BorderLayout.CENTER);
 
     status = new JLabel(calc.getAuthor());
