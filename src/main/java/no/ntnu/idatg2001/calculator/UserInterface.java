@@ -60,7 +60,7 @@ public class UserInterface {
     display = new JTextField();
     contentPane.add(display, BorderLayout.NORTH);
 
-    JPanel buttonPanel = new JPanel(new GridLayout(4, 4));
+    JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
     addNumberButton(buttonPanel, 7);
     addNumberButton(buttonPanel, 8);
     addNumberButton(buttonPanel, 9);
@@ -76,11 +76,15 @@ public class UserInterface {
     addNumberButton(buttonPanel, 3);
     buttonPanel.add(new JLabel(" "));
 
+
     addNumberButton(buttonPanel, 0);
+
     addButton(buttonPanel, "+", () -> calc.plus());
     addButton(buttonPanel, "-", () -> calc.minus());
     addButton(buttonPanel, "=", () -> calc.equals());
 
+    addButton (buttonPanel,"x", () -> calc.multiply ());
+    //addButton (buttonPanel,"/", () -> calc.divide ());
     contentPane.add(buttonPanel, BorderLayout.CENTER);
 
     status = new JLabel(calc.getAuthor());

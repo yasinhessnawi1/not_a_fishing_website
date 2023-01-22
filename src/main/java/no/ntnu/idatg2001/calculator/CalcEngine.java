@@ -10,7 +10,9 @@ public class CalcEngine {
   // Put instance variables here.
   private int displayValue;
   private int storedValue;
+  private int oldValue;
   private boolean newValue;
+  private char operation; // added variable to keep track of operation
 
   /**
    * Create a CalcEngine.
@@ -50,36 +52,108 @@ public class CalcEngine {
    * The 'plus' button was pressed.
    */
   public void plus() {
+    if ( storedValue != 0 )
+    {
+      if ( oldValue == 0 )
+      {
+        oldValue = oldValue + storedValue + displayValue;
+      } else
+      {
+        oldValue = oldValue + displayValue;
+      }
+
+    }
     storedValue = displayValue;
+    operation = '+';
     newValue = true;
   }
 
   /**
-   * The 'minus' button was pressed.
+
+   The 'minus' button was pressed.
    */
   public void minus() {
+    if ( storedValue != 0 )
+    {
+      if ( oldValue == 0 )
+      {
+        oldValue = storedValue - displayValue - oldValue;
+      } else
+      {
+        oldValue = oldValue - displayValue;
+      }
+
+    }
     storedValue = displayValue;
+    operation = '-';
     newValue = true;
 
   }
 
+  public void multiply() {
+    if (storedValue == 0) {
+      storedValue = displayValue;
+    } else
+    {
+      if (storedValue != 0){
+        storedValue = storedValue * displayValue;
+      }
+
+    }
+    operation = 'x';
+    newValue = true;
+  }
   /**
    * The '=' button was pressed.
+   *
+   * @return
    */
-  public int equals() {
+  public int equals()
+  {
 
-
-    if (){
-      displayValue += storedValue;
-      return displayValue;
-
-    } else if (minus())
+    if ( operation == '+')
     {
-      displayValue -= storedValue;
+      plusOperation ( );
+    } else if ( operation == '-')
+    {
+      minusOperation ( );
+    } else if ( operation == 'x')
+    {
+      multiplyOperation ( );
+    }
+
+    storedValue = oldValue = 0;
+      newValue = true;
       return displayValue;
     }
-    return displayValue;
+
+  private void multiplyOperation ( )
+  {
+      displayValue = displayValue * storedValue;
   }
+
+  private void minusOperation ( )
+  {
+    if ( oldValue != 0 )
+    {
+      displayValue = oldValue - displayValue;
+    } else
+    {
+      displayValue -= storedValue;
+    }
+  }
+
+  private void plusOperation ( )
+  {
+    if ( oldValue != 0 )
+  {
+    displayValue += oldValue;
+  } else
+  {
+    displayValue += storedValue;
+  }
+  }
+
 
   /**
    * The 'C' (clear) button was pressed.
@@ -117,4 +191,5 @@ public class CalcEngine {
   public String getVersion() {
     return "";
   }
+
 }
